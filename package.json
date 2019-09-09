@@ -1,0 +1,27 @@
+{
+  "name": "graphql-server-demo",
+  "version": "1.0.0",
+  "description": "graphql",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/szy0syz/graphql-server-demo.git"
+  },
+  "keywords": [
+    "graphql"
+  ],
+  "author": "jerry shi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/szy0syz/graphql-server-demo/issues"
+  },
+  "homepage": "https://github.com/szy0syz/graphql-server-demo#readme",
+  "dependencies": {
+    "apollo-server": "^2.9.3",
+    "graphql": "^14.5.4",
+    "mongoose": "^5.6.13"
+  }
+}
