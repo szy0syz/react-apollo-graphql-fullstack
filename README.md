@@ -6,3 +6,7 @@
 
 * mongoose和server链式调用
 * apollo-server基本使用
+
+## 步骤
+
+* 建立graphql文件夹
