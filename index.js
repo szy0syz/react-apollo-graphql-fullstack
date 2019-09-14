@@ -13,7 +13,7 @@ mongoose
   .connect('mongodb://localhost:27017/apollo_serv', { useNewUrlParser: true })
   .then(() => {
     console.log('mongoose connected');
-    return server.listen({ port: 5000 });
+    return server.listen({ port: 5100 });
   })
   .then(res => {
     console.log(`Server running at ${res.url}`);
