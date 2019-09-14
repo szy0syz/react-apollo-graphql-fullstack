@@ -57,3 +57,19 @@ ReactDOM.render(ApolloProvider, document.getElementById('root'));
 ### No.2 初始化Router和Semantic
 
 > yarn add eact-router-dom semantic-ui-css semantic-ui-react
+
+* 在graphql的schema中使用Date类型，否则只有String
+* `https://www.apollographql.com/docs/graphql-tools/scalars/`
+
+```js
+module.exports = gql`
+  scalar Date
+
+  type Post {
+    id: ID!
+    body: String!
+    createdAt: Date!
+    username: String!
+  }
+}
+```

@@ -1,10 +1,12 @@
 const gql = require('graphql-tag');
 
 module.exports = gql`
+  scalar Date
+
   type Post {
-    _id: ID!
+    id: ID!
     body: String!
-    createAt: String!
+    createdAt: Date!
     username: String!
   }
 
