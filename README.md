@@ -18,4 +18,42 @@ yarn add @apollo/react-hooks apollo-cache-inmemory apollo-link-http apollo-clien
 
 ## Clien
 
-* 创建AolloProvder
+### No.1 初始化Apollo
+
+* 创建AolloProvder.js
+
+```js
+import React from 'react';
+import App from './App';
+import ApolloClient from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { createHttpLink } from 'apollo-link-http';
+import { ApolloProvider } from '@apollo/react-hooks';
+
+const httpLink = createHttpLink({
+  uri: 'http://localhost:5100'
+});
+
+const client = new ApolloClient({
+  link: httpLink,
+  cache: new InMemoryCache()
+});
+
+export default (
+  <ApolloProvider client={client}>
+    <App />
+  </ApolloProvider>
+);
+```
+
+* 修改index.js，使用Apollo的Provider包裹一层App.js
+
+```js
+import ApolloProvider from './ApolloProvider';
+
+ReactDOM.render(ApolloProvider, document.getElementById('root'));
+```
+
+### No.2 初始化Router和Semantic
+
+> yarn add eact-router-dom semantic-ui-css semantic-ui-react
