@@ -2,10 +2,10 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-14 22:43:45
- * @LastEditTime: 2019-09-15 21:17:46
+ * @LastEditTime: 2019-09-15 22:21:20
  * @LastEditors: Please set LastEditors
  */
-const { ApolloServer } = require('apollo-server');
+const { ApolloServer, PubSub } = require('apollo-server');
 
 const mongoose = require('mongoose');
 const typeDefs = require('./graphql/typeDefs');
@@ -15,10 +15,12 @@ const bcrypt = require('bcryptjs');
 const Post = require('./models/Post');
 const User = require('./models/User');
 
+const pubsub = new PubSub();
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: ({ req }) => ({ req })
+  context: ({ req }) => ({ req, pubsub })
 });
 
 mongoose.connect('mongodb://localhost:27017/apollo_serv', { useNewUrlParser: true, useUnifiedTopology: true });
