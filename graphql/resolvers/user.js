@@ -1,3 +1,10 @@
+/*
+ * @Description: User resolver
+ * @Author: jerry shi
+ * @Date: 2019-09-14 22:43:45
+ * @LastEditTime: 2019-09-15 09:57:41
+ * @LastEditors: Please set LastEditors
+ */
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { UserInputError } = require('apollo-server');
@@ -68,6 +75,12 @@ module.exports = {
       };
     },
 
+
+    /**
+     * @description: 用户注册
+     * @param (parent, args, context, info)
+     * @return: {...user, token}
+     */    
     async login(_, { username, password }) {
       const { errors, valid } = validateLoginInput(username, password);
 
