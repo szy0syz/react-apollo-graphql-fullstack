@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-09-14 22:43:45
+ * @LastEditTime: 2019-09-15 21:12:06
+ * @LastEditors: Please set LastEditors
+ */
 const gql = require('graphql-tag');
 
 module.exports = gql`
@@ -27,10 +34,13 @@ module.exports = gql`
 
   type Query {
     getPosts: [Post]
+    getPost(postId: ID!): Post
   }
 
   type Mutation {
     register(registerInput: RegisterInput): User!
     login(username: String!, password: String!): User!
+    createPost(body: String): Post!
+    deletePost(postId: ID!): String!
   }
 `;
