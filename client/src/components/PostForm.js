@@ -1,10 +1,3 @@
-/*
- * @Description: In User Settings Edit
- * @Author: your name
- * @Date: 2019-09-16 11:36:27
- * @LastEditTime: 2019-09-16 13:47:17
- * @LastEditors: Please set LastEditors
- */
 import React from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import gql from 'graphql-tag';

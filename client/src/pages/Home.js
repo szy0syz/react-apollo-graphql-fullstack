@@ -1,10 +1,3 @@
-/*
- * @Description: In User Settings Edit
- * @Author: your name
- * @Date: 2019-09-16 09:22:31
- * @LastEditTime: 2019-09-16 13:49:42
- * @LastEditors: Please set LastEditors
- */
 import React, { useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { Grid, Transition } from 'semantic-ui-react';
