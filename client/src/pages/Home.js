@@ -2,12 +2,12 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-16 09:22:31
- * @LastEditTime: 2019-09-16 09:22:31
- * @LastEditors: your name
+ * @LastEditTime: 2019-09-16 13:49:42
+ * @LastEditors: Please set LastEditors
  */
 import React, { useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Transition } from 'semantic-ui-react';
 import PostForm from '../components/PostForm';
 import { AuthContext } from '../context/auth';
 import PostCard from '../components/PostCard';
@@ -37,11 +37,14 @@ function Home() {
         {loading ? (
           <h1>Loading posts...</h1>
         ) : (
-          posts.map(post => (
-            <Grid.Column key={post.id}>
-              <PostCard post={post} />
-            </Grid.Column>
-          ))
+          <Transition.Group>
+            {posts &&
+              posts.map(post => (
+                <Grid.Column key={post.id}>
+                  <PostCard post={post} />
+                </Grid.Column>
+              ))}
+          </Transition.Group>
         )}
       </Grid.Row>
     </Grid>
