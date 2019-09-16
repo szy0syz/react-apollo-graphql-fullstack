@@ -1,18 +1,20 @@
 {
-  "name": "graphql-server-demo",
+  "name": "react-apollo-graphql-fullstack",
   "version": "1.0.0",
-  "description": "graphql",
+  "description": "react graphql semanticUI",
   "main": "index.js",
   "scripts": {
-    "serve": "node index",
+    "server": "node index",
     "start": "nodemon index"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/szy0syz/graphql-server-demo.git"
+    "url": "git+https://github.com/szy0syz/react-apollo-graphql-fullstack.git"
   },
   "keywords": [
-    "graphql"
+    "graphql",
+    "react",
+    "semantic-ui"
   ],
   "author": "jerry shi",
   "license": "ISC",
