@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-09-16 09:22:31
+ * @LastEditTime: 2019-09-16 09:22:31
+ * @LastEditors: your name
+ */
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
@@ -39,6 +46,8 @@ const FETCH_POSTS_QUERY = gql`
       body
       createdAt
       username
+      likeCount
+      commentCount
     }
   }
 `;

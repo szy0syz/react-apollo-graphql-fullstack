@@ -1,3 +1,10 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-09-16 09:22:31
+ * @LastEditTime: 2019-09-16 09:22:31
+ * @LastEditors: your name
+ -->
 # React-Apollo-Graphql-Fullstack
 
 > apollo-server
@@ -75,6 +82,8 @@ module.exports = gql`
 ```
 
 ### 封装 useForm
+
+> 封装以后就可以在登录和注册，或者以后其他表单页面使用。 hook真香
 
 ```js
 import { useState } from 'react';

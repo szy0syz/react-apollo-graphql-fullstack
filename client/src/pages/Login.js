@@ -1,9 +1,9 @@
 /*
- * @Description: In User Settings Edit
- * @Author: your name
+ * @Description: 用户登录页
+ * @Author: jerry shi
  * @Date: 2019-09-16 09:22:31
- * @LastEditTime: 2019-09-16 10:25:56
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2019-09-16 10:30:31
+ * @LastEditors: jerry shi
  */
 import React, { useState } from 'react';
 import { Form, Button } from 'semantic-ui-react';

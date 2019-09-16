@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-15 21:18:37
- * @LastEditTime: 2019-09-15 21:44:03
+ * @LastEditTime: 2019-09-16 10:42:06
  * @LastEditors: Please set LastEditors
  */
 const { AuthenticationError } = require('apollo-server');
