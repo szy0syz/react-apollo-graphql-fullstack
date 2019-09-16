@@ -1,18 +1,19 @@
 /*
  * @Description: In User Settings Edit
- * @Author: your name
+ * @Author: jerry shi
  * @Date: 2019-09-16 09:22:31
- * @LastEditTime: 2019-09-16 10:19:22
+ * @LastEditTime: 2019-09-16 10:59:41
  * @LastEditors: Please set LastEditors
  */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-
+import { AuthContext } from '../context/auth';
 import { useForm } from '../utils/hooks';
 
 function Register(props) {
+  const context = useContext(AuthContext);
   const [errors, setErrors] = useState({});
 
   // const initialState = {
@@ -48,10 +49,11 @@ function Register(props) {
   const [addUser, { loading }] = useMutation(REGISGER_USER, {
     /**
      * @description: 当执行副作用函数返回成功时
-     * @param {proxy, result: model.User} 
+     * @param {proxy, result: model.User}
      * @return: void()
-     */    
-    update() {
+     */
+    update(_, { data: { register: userData } }) {
+      context.login(userData);
       props.history.push('/');
     },
     onError(err) {
@@ -60,16 +62,16 @@ function Register(props) {
     variables: values,
   });
 
-
   /**
    * @description: 为了消除 Warning
-   * @param {type} 
-   * @return: 
-   */  
+   * @param {type}
+   * @return:
+   */
+
   function registerUser() {
     addUser();
   }
-  
+
   return (
     <div className="form-container">
       <Form onSubmit={onSubmit} noValidate className={loading ? 'loading' : ''}>

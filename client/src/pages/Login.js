@@ -2,17 +2,18 @@
  * @Description: 用户登录页
  * @Author: jerry shi
  * @Date: 2019-09-16 09:22:31
- * @LastEditTime: 2019-09-16 10:30:31
- * @LastEditors: jerry shi
+ * @LastEditTime: 2019-09-16 10:57:45
+ * @LastEditors: Please set LastEditors
  */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-
+import { AuthContext } from '../context/auth'
 import { useForm } from '../utils/hooks';
 
 function Login(props) {
+  const context = useContext(AuthContext);
   const [errors, setErrors] = useState({});
 
   const { onChange, onSubmit, values } = useForm(loginUserCallback, {
@@ -21,7 +22,8 @@ function Login(props) {
   });
 
   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
-    update() {
+    update(_, { data: { login: userData } }) {
+      context.login(userData);
       props.history.push('/');
     },
     onError(err) {
