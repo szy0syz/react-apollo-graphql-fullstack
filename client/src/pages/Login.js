@@ -2,7 +2,7 @@
  * @Description: 用户登录页
  * @Author: jerry shi
  * @Date: 2019-09-16 09:22:31
- * @LastEditTime: 2019-09-16 10:57:45
+ * @LastEditTime: 2019-09-16 22:38:39
  * @LastEditors: Please set LastEditors
  */
 import React, { useState, useContext } from 'react';
@@ -58,7 +58,7 @@ function Login(props) {
           value={values.password}
           onChange={onChange}
         />
-        <Button type="submit">Register</Button>
+        <Button type="submit">Login</Button>
       </Form>
       {Object.keys(errors).length > 0 && (
         <div className="ui error message">
