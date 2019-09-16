@@ -2,14 +2,15 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-16 09:22:31
- * @LastEditTime: 2019-09-16 09:22:31
- * @LastEditors: your name
+ * @LastEditTime: 2019-09-16 11:28:30
+ * @LastEditors: Please set LastEditors
  */
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 
 import { AuthProvider } from './context/auth';
+import AuthRoute from './utils/auth-route';
 
 import MenuBar from './components/MenuBar';
 import Home from './pages/Home';
@@ -26,8 +27,8 @@ function App() {
         <Container>
           <MenuBar />
           <Route exact path="/" component={Home} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
+          <AuthRoute exact path="/login" component={Login} />
+          <AuthRoute exact path="/register" component={Register} />
         </Container>
       </Router>
     </AuthProvider>
