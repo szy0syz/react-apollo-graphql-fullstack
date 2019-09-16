@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-14 22:43:45
- * @LastEditTime: 2019-09-15 23:10:50
+ * @LastEditTime: 2019-09-16 11:55:27
  * @LastEditors: Please set LastEditors
  */
 const Post = require('../../models/Post');
@@ -43,6 +43,9 @@ module.exports = {
     async createPost(_, { body }, context) {
       // context is http request object
       const user = checkAuth(context);
+      if (body.trim() === '') {
+        throw new Error('Post body must not be empty');
+      }
 
       const newPost = new Post({
         body,
