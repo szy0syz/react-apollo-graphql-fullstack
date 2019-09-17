@@ -2,9 +2,10 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-16 09:22:31
- * @LastEditTime: 2019-09-16 09:22:31
- * @LastEditors: your name
+ * @LastEditTime: 2019-09-17 09:48:18
+ * @LastEditors: Please set LastEditors
  -->
+
 # React-Apollo-Graphql-Fullstack
 
 > apollo-server
@@ -83,7 +84,7 @@ module.exports = gql`
 
 ### 封装 useForm
 
-> 封装以后就可以在登录和注册，或者以后其他表单页面使用。 hook真香
+> 封装以后就可以在登录和注册，或者以后其他表单页面使用。 hook 真香
 
 ```js
 import { useState } from 'react';
@@ -106,4 +107,25 @@ export const useForm = (callback, initialState = {}) => {
     values,
   };
 };
+```
+
+### 更新 Apollo-GraphQL 缓存
+
+```js
+const [deletePost] = useMutation(DELETE_POST_MUTATION, {
+  update(proxy) {
+    setConfirmOpen(false);
+    // * remove post from cache
+    // ! 读缓存 过滤缓存 写缓存
+    const data = proxy.readQuery({
+      query: FETCH_POSTS_QUERY,
+    });
+    data.getPosts = data.getPosts.filter(p => p.id !== postId);
+    proxy.writeQuery({ query: FETCH_POSTS_QUERY, data });
+    if (callback) callback();
+  },
+  variables: {
+    postId,
+  },
+});
 ```

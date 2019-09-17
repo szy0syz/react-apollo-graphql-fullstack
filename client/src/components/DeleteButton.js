@@ -1,23 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
-import { Button, Icon } from 'semantic-ui-react';
+import { Button, Confirm, Icon } from 'semantic-ui-react';
 
-function DeleteButton(props) {
+import { FETCH_POSTS_QUERY } from '../utils/graphql';
+
+function DeleteButton({ postId, callback }) {
+  const [confirmOpen, setConfirmOpen] = useState(false);
+
   const [deletePost] = useMutation(DELETE_POST_MUTATION, {
-    variables: { postId },
+    update(proxy) {
+      setConfirmOpen(false);
+      // * remove post from cache
+      // ! 读缓存 过滤缓存 写缓存
+      const data = proxy.readQuery({
+        query: FETCH_POSTS_QUERY,
+      });
+      data.getPosts = data.getPosts.filter(p => p.id !== postId);
+      proxy.writeQuery({ query: FETCH_POSTS_QUERY, data });
+      if (callback) callback();
+    },
+    variables: {
+      postId,
+    },
   });
 
   return (
-    <Button as='div' color='red' floated='right' onClick={() => console.log('Delete Post')}>
-      <Icon name='trash' style={{ margin: 0 }} />
-    </Button>
+    <>
+      <Button as="div" color="red" floated="right" onClick={() => setConfirmOpen(true)}>
+        <Icon name="trash" style={{ margin: 0 }} />
+      </Button>
+      <Confirm open={confirmOpen} onCancel={() => setConfirmOpen(false)} onConfirm={deletePost} />
+    </>
   );
 }
 
 const DELETE_POST_MUTATION = gql`
-  mutation deletaPost($postId: ID!) {
-    deletePost($postId: postId)
+  mutation deletePost($postId: ID!) {
+    deletePost(postId: $postId)
   }
 `;
 

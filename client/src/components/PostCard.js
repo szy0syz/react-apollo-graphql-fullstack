@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 import LikeButton from './LikeButton';
+import DeleteButton from './DeleteButton';
 import { AuthContext } from '../context/auth';
 
 function PostCard({ post: { body, createdAt, id, username, likes, likeCount, commentCount } }) {
   const { user } = useContext(AuthContext);
-  
+
   return (
     <Card fluid>
       <Card.Content>
@@ -20,7 +21,7 @@ function PostCard({ post: { body, createdAt, id, username, likes, likeCount, com
         <Card.Description>{body}</Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <LikeButton user={user} post={{ id, likes, likeCount }}/>
+        <LikeButton user={user} post={{ id, likes, likeCount }} />
         <Button labelPosition="right" as={Link} to={`/posts/${id}`}>
           <Button color="blue" basic>
             <Icon name="comments" />
@@ -29,11 +30,12 @@ function PostCard({ post: { body, createdAt, id, username, likes, likeCount, com
             {commentCount}
           </Label>
         </Button>
-        {user && user.username === username && (
+        {user && user.username === username && (<DeleteButton postId={id} />)}
+        {/* {user && user.username === username && (
           <Button as="div" color="red" floated="right" onClick={() => console.log('Delete post')}>
             <Icon name="trash" style={{ margin: 0 }} />
           </Button>
-        )}
+        )} */}
       </Card.Content>
     </Card>
   );
