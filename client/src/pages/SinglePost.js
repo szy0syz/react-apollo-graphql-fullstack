@@ -11,7 +11,6 @@ import { AuthContext } from '../context/auth';
 
 function SinglePost(props) {
   const postId = props.match.params.postId;
-
   const { user } = useContext(AuthContext);
 
   const { data } = useQuery(FETCH_POST_QUERY, {
@@ -26,9 +25,10 @@ function SinglePost(props) {
 
   let postMarkup;
 
-  if (!data || Object.keys(data.getPost) === 0) {
+  if (!data || !data.getPost) {
     postMarkup = <p>Loading post...</p>;
   } else {
+
     const { id, body, createdAt, username, comments, likes, likeCount, commentCount } = data.getPost;
     postMarkup = (
       <Grid>

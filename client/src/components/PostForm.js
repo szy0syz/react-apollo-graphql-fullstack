@@ -11,17 +11,31 @@ function PostForm() {
     body: '',
   });
 
+  // const [createPost, { error }] = useMutation(CREATE_POST_MUTATION, {
+  //   variables: values,
+  //   update(proxy, result) {
+  //     // 读取缓存结果
+  //     const data = proxy.readQuery({
+  //       query: FETCH_POSTS_QUERY,
+  //     });
+  //     // 将缓存结果和新post合并和写入缓存，graphQL真香！
+  //     console.log('~~~~result.data.createPost', result.data.createPost);
+  //     console.log('~~~~data.getPosts', data.getPosts);
+  //     data.getPosts = [result.data.createPost, ...data.getPosts];
+  //     proxy.writeQuery({ query: FETCH_POSTS_QUERY, data });
+
+  //     values.body = '';
+  //   },
+  // });
+
   const [createPost, { error }] = useMutation(CREATE_POST_MUTATION, {
     variables: values,
     update(proxy, result) {
-      // 读取缓存结果
       const data = proxy.readQuery({
         query: FETCH_POSTS_QUERY,
       });
-      // 将缓存结果和新post合并和写入缓存，graphQL真香！
       data.getPosts = [result.data.createPost, ...data.getPosts];
       proxy.writeQuery({ query: FETCH_POSTS_QUERY, data });
-
       values.body = '';
     },
   });
@@ -48,7 +62,7 @@ function PostForm() {
         </Form.Field>
       </Form>
       {error && (
-        <div className="ui error message" style={{marginBottom: 20}}>
+        <div className="ui error message" style={{ marginBottom: 20 }}>
           <ul className="list">
             <li>{error.graphQLErrors[0].message}</li>
           </ul>
