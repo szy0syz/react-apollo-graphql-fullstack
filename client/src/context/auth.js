@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: jerry shi
  * @Date: 2019-09-16 10:45:49
- * @LastEditTime: 2019-09-16 11:19:40
+ * @LastEditTime: 2019-09-18 15:14:03
  * @LastEditors: Please set LastEditors
  */
 import React, { useReducer, createContext } from 'react';
@@ -22,7 +22,7 @@ if (localStorage.getItem('token')) {
 
 const AuthContext = createContext({
   user: null,
-  login: data => {},
+  login: userData => {},
   logout: () => {},
 });
 

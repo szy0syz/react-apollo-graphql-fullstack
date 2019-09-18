@@ -2,13 +2,14 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-14 22:43:45
- * @LastEditTime: 2019-09-15 22:28:31
+ * @LastEditTime: 2019-09-18 14:50:21
  * @LastEditors: Please set LastEditors
  */
 const gql = require('graphql-tag');
 
 module.exports = gql`
   scalar Date
+  scalar Coordinates
 
   type Post {
     id: ID!
@@ -44,6 +45,14 @@ module.exports = gql`
     updatedAt: Date!
   }
 
+  type Floor {
+    number: String!
+    name: String!
+    center: Coordinates!
+    navigation: Coordinates!
+    polygons: [Coordinates]
+  }
+
   input RegisterInput {
     username: String!
     password: String!
@@ -54,6 +63,7 @@ module.exports = gql`
   type Query {
     getPosts: [Post]
     getPost(postId: ID!): Post
+    getFloor(floorNumber: String!): [Floor]
   }
 
   type Mutation {
