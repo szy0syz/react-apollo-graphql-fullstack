@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-14 22:43:45
- * @LastEditTime: 2019-09-18 14:50:21
+ * @LastEditTime: 2019-09-19 13:10:55
  * @LastEditors: Please set LastEditors
  */
 const gql = require('graphql-tag');
@@ -48,6 +48,7 @@ module.exports = gql`
   type Floor {
     number: String!
     name: String!
+    color: String!
     center: Coordinates!
     navigation: Coordinates!
     polygons: [Coordinates]
