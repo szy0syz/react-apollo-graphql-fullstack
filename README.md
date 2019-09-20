@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-16 09:22:31
- * @LastEditTime: 2019-09-17 09:48:18
+ * @LastEditTime: 2019-09-20 23:55:54
  * @LastEditors: Please set LastEditors
  -->
 
@@ -128,4 +128,23 @@ const [deletePost] = useMutation(DELETE_POST_MUTATION, {
     postId,
   },
 });
+```
+
+### 关于更新 Apollo cache 缓存问题
+
+> 在 "@apollo/react-hooks": "^3.0.0" 之前，上述方法能触发组件重渲染，但到 3.0+ 以后则不会再触发，得这么改！！！
+
+```js
+// ApolloProvider.js 里
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache({ freezeResults: true }),  // new
+  assumeImmutableResults: true,  // new
+});
+
+update() {
+  // ...
+  const newPosts = [result.data.createPost, ...data.getPosts];
+  proxy.writeQuery({ query: FETCH_POSTS_QUERY, data: { getPosts: newPosts } });
+}
 ```

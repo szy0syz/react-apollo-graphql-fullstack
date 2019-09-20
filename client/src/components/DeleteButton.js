@@ -9,7 +9,6 @@ function DeleteButton({ postId, commentId, callback }) {
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   const mutation = commentId ? DELETE_COMMENT_MUTATION : DELETE_POST_MUTATION;
-  console.log('postId commentId: ', postId, commentId);
   // * 合二为一
   const [deletePostOrMutation] = useMutation(mutation, {
     update(proxy) {
