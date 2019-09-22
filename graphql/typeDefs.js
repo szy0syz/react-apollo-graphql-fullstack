@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: jerry shi
  * @Date: 2019-09-14 22:43:45
- * @LastEditTime: 2019-09-20 16:17:48
+ * @LastEditTime: 2019-09-22 11:33:59
  */
 const gql = require('graphql-tag');
 
@@ -74,6 +74,7 @@ module.exports = gql`
     getPost(postId: ID!): Post
     getFloor(floorNumber: String!): [Floor]
     getShop(shopNumber: String!): Shop
+    getShops(shopNumber: String!): [Shop]
   }
 
   type Mutation {
