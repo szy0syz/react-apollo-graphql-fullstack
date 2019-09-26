@@ -1,10 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { UserInputError } = require('apollo-server');
-const {
-  validateRegisterInput,
-  validateLoginInput,
-} = require('../../utils/validatrors');
+const { validateRegisterInput, validateLoginInput } = require('../../utils/validatrors');
 const User = require('../../models/User');
 const { SECRET_KEY } = require('../../config');
 
@@ -16,7 +13,7 @@ function GenerateToken(user) {
       username: user.username,
     },
     SECRET_KEY,
-    { expiresIn: '1h' },
+    { expiresIn: '1h' }
   );
 }
 
@@ -29,15 +26,10 @@ module.exports = {
         registerInput: { username, email, password, confirmPassword },
       },
       context,
-      info,
+      info
     ) {
       // TODO: Validate user data
-      const { valid, errors } = validateRegisterInput(
-        username,
-        email,
-        password,
-        confirmPassword,
-      );
+      const { valid, errors } = validateRegisterInput(username, email, password, confirmPassword);
       if (!valid) {
         throw new UserInputError('Errors', { errors });
       }
@@ -57,7 +49,7 @@ module.exports = {
         username,
         password: bcrypt.hashSync(password),
       });
-      
+
       const res = await newUser.save();
       const token = GenerateToken(res);
 
@@ -68,19 +60,19 @@ module.exports = {
       };
     },
 
-
     /**
      * @description: 用户注册
      * @param (parent, args, context, info)
      * @return: {...user, token}
-     */    
+     */
+
     async login(_, { username, password }) {
       const { errors, valid } = validateLoginInput(username, password);
 
       if (!valid) {
         throw new UserInputError('Errors', { errors });
       }
-      
+
       const user = await User.findOne({ username });
 
       if (!user) {
@@ -89,7 +81,7 @@ module.exports = {
       }
 
       const match = await bcrypt.compare(password, user.password);
-      
+
       if (!match) {
         errors.general = 'User not found';
         throw new UserInputError('User not found', { errors });

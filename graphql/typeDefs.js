@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: jerry shi
  * @Date: 2019-09-14 22:43:45
- * @LastEditTime: 2019-09-22 11:33:59
+ * @LastEditTime: 2019-09-26 17:51:32
  */
 const gql = require('graphql-tag');
 
@@ -53,6 +53,28 @@ module.exports = gql`
     polygons: [Coordinates]
   }
 
+  type TelphoneItem {
+    PhoneRemark: String
+    Phone: String
+  }
+
+  type HShop {
+    floor: Int!
+    name: String!
+    logo: String
+    commercialTypeID: Int!
+    commercialTypeName: String!
+    subCommercialTypeName: String!
+    floorName: String!
+    doorNo: String!
+    businessHours: String!
+    shopStatus: String!
+    shopType: String!
+    shopMode: String!
+    promotionInfo: String
+    telphoneList: [TelphoneItem]
+  }
+
   type Floor {
     number: String!
     name: String!
@@ -75,6 +97,8 @@ module.exports = gql`
     getFloor(floorNumber: String!): [Floor]
     getShop(shopNumber: String!): Shop
     getShops(shopNumber: String!): [Shop]
+    getHShop(shopId: ID!): HShop
+    getHShops(floor: Int, sortBy: String, commercialTypeID: Int): [HShop]
   }
 
   type Mutation {
