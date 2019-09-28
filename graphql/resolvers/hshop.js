@@ -15,12 +15,12 @@ module.exports = {
     },
     async getHShops(
       _,
-      { floor, sortBy, commercialTypeID, pageIndex = 1, pageSize = 10 }
+      { floor, sortBy, commercialTypeID, offset = 0, limit = 20 }
     ) {
       try {
         let query = Shop.find({})
-          .skip((pageIndex - 1) * pageSize)
-          .limit(pageSize);
+          .skip(offset)
+          .limit(limit);
         if (floor) {
           query.where('floor', floor);
         }
