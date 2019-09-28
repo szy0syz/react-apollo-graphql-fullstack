@@ -15,12 +15,18 @@ module.exports = {
     },
     async getHShops(
       _,
-      { floor = 1, sortBy, commercialTypeID = 100, pageIndex = 1, pageSize = 10 }
+      { floor, sortBy, commercialTypeID, pageIndex = 1, pageSize = 10 }
     ) {
       try {
-        let query = Shop.find({ floor, commercialTypeID })
+        let query = Shop.find({})
           .skip((pageIndex - 1) * pageSize)
           .limit(pageSize);
+        if (floor) {
+          query.where('floor', floor);
+        }
+        if (commercialTypeID) {
+          query.where('commercialTypeID', commercialTypeID);
+        }
         if (sortBy === 'promotion') query = query.sort({ promotionInfo: -1 });
         if (sortBy === 'name') query = query.sort({ name: -1 });
         const data = await query.exec();
