@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: jerry shi
  * @Date: 2019-09-14 22:43:45
- * @LastEditTime: 2019-09-28 23:15:11
+ * @LastEditTime: 2019-09-29 15:45:41
  */
 const gql = require('graphql-tag');
 
@@ -100,6 +100,7 @@ module.exports = gql`
     getShops(shopNumber: String!): [Shop]
     getHShop(shopId: ID!): HShop
     getHShops(floor: Int, sortBy: String, commercialTypeID: Int, offset: Int, limit: Int): [HShop]
+    getHShopsByName(name: String!): [HShop]
   }
 
   type Mutation {

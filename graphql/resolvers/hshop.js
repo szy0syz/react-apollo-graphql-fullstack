@@ -1,5 +1,3 @@
-const lodash = require('lodash');
-const data = require('./floorInfo');
 const Shop = require('../../models/Shop');
 
 module.exports = {
@@ -13,10 +11,8 @@ module.exports = {
         throw new Error(error);
       }
     },
-    async getHShops(
-      _,
-      { floor, sortBy, commercialTypeID, offset = 0, limit = 20 }
-    ) {
+
+    async getHShops(_, { floor, sortBy, commercialTypeID, offset = 0, limit = 20 }) {
       try {
         let query = Shop.find({})
           .skip(offset)
@@ -28,8 +24,18 @@ module.exports = {
           query.where('commercialTypeID', commercialTypeID);
         }
         if (sortBy === 'promotion') query = query.sort({ promotionInfo: -1 });
-        if (sortBy === 'name') query = query.sort({ name: -1 });
+        if (sortBy === 'name') query = query.sort({ name: 1 });
         const data = await query.exec();
+        return data;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+
+    async getHShopsByName(_, { name, limit = 20 }) {
+      try {
+        const data = await Shop.find({ name: new RegExp(name, 'ig') }).limit(limit);
+
         return data;
       } catch (error) {
         throw new Error(error);
