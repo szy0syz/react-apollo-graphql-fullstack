@@ -1,4 +1,6 @@
 const Shop = require('../../models/Shop');
+const checkAuth = require('../../utils/check-auth');
+const { UserInputError } = require('apollo-server');
 
 module.exports = {
   Query: {
@@ -39,6 +41,28 @@ module.exports = {
         return data;
       } catch (error) {
         throw new Error(error);
+      }
+    },
+  },
+
+  Mutation: {
+    async likeShop(_, { shopId }, context) {
+      const { id: userId } = checkAuth(context);
+      const shop = await Shop.findById(shopId);
+
+      if (shop) {
+        if (shop.likes.find(like => like.user === userId)) {
+          // Already likes, unlike it
+          shop.likes = shop.likes.filter(like => like.user !== userId);
+        } else {
+          // Not liked, lile post
+          post.likes.push({ user: userId, createdAt: new Date().toISOString() });
+        }
+
+        await shop.save();
+        return shop;
+      } else {
+        throw new UserInputError('Shop not found');
       }
     },
   },

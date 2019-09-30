@@ -1,10 +1,3 @@
-/*
- * @Description: In User Settings Edit
- * @Author: your name
- * @Date: 2019-09-14 22:43:45
- * @LastEditTime: 2019-09-15 22:30:03
- * @LastEditors: Please set LastEditors
- */
 const { model, Schema } = require('mongoose');
 
 const PostSchema = new Schema({

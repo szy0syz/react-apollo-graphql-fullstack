@@ -21,8 +21,33 @@ const ShopSchema = new Schema(
         Phone: String,
       },
     ],
+    comments: [
+      {
+        body: String,
+        createdAt: {
+          type: Date,
+          default: Date.now(),
+        },
+        user: {
+          type: Schema.Types.ObjectId,
+          ref: 'users',
+        },
+      },
+    ],
+    likes: [
+      {
+        user: {
+          type: Schema.Types.ObjectId,
+          ref: 'users',
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now(),
+        },
+      },
+    ],
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 module.exports = model('Shop', ShopSchema);
