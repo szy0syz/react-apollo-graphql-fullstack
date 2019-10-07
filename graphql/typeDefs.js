@@ -101,6 +101,7 @@ module.exports = gql`
     getHShop(shopId: ID!): HShop
     getHShops(floor: Int, sortBy: String, commercialTypeID: Int, offset: Int, limit: Int): [HShop]
     getHShopsByName(name: String!): [HShop]
+    uploadToken: String
   }
 
   type Mutation {

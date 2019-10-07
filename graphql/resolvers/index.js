@@ -12,6 +12,7 @@ const commentResolvers = require('./comment');
 const shopResolvers = require('./shop');
 const hshopResolvers = require('./hshop');
 const floorResolvers = require('./floor');
+const qiniuResolvers = require('./qiniu');
 
 module.exports = {
   Query: {
@@ -19,6 +20,7 @@ module.exports = {
     ...floorResolvers.Query,
     ...shopResolvers.Query,
     ...hshopResolvers.Query,
+    ...qiniuResolvers.Query,
   },
   Mutation: {
     ...usersResolvers.Mutation,
