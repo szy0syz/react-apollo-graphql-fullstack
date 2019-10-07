@@ -4,7 +4,7 @@
  * @Date: 2019-09-14 22:43:45
  * @LastEditTime: 2019-09-29 15:45:41
  */
-const gql = require('graphql-tag');
+const gql = require("graphql-tag");
 
 module.exports = gql`
   scalar Date
@@ -58,6 +58,19 @@ module.exports = gql`
     Phone: String
   }
 
+  type CommentUser {
+    id: ID!
+    username: String!
+  }
+
+  type ShopComment {
+    id: ID!
+    body: String!
+    images: [String]
+    createdAt: Date!
+    user: CommentUser!
+  }
+
   type HShop {
     id: ID!
     floor: Int!
@@ -74,6 +87,7 @@ module.exports = gql`
     shopMode: String!
     promotionInfo: String
     telphoneList: [TelphoneItem]
+    comments: [ShopComment]
   }
 
   type Floor {
@@ -112,6 +126,8 @@ module.exports = gql`
     createComment(postId: ID!, body: String!): Post!
     deleteComment(postId: ID!, commentId: ID!): Post!
     likePost(postId: ID!): Post!
+    likeShop(shopId: ID!): HShop!
+    shopCreateComment(shopId: ID!, commentBody: String!, commentImages: [String]): HShop!
   }
   
   type Subscription {

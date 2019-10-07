@@ -24,6 +24,7 @@ const ShopSchema = new Schema(
     comments: [
       {
         body: String,
+        images: [String],
         createdAt: {
           type: Date,
           default: Date.now(),

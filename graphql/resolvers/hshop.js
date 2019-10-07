@@ -1,12 +1,12 @@
-const Shop = require('../../models/Shop');
-const checkAuth = require('../../utils/check-auth');
-const { UserInputError } = require('apollo-server');
+const Shop = require("../../models/Shop");
+const checkAuth = require("../../utils/check-auth");
+const { UserInputError } = require("apollo-server");
 
 module.exports = {
   Query: {
     async getHShop(_, { shopId }) {
       try {
-        const shop = await Shop.findById(shopId);
+        const shop = await Shop.findById(shopId).populate({ path: 'comments.user', model: 'User' });
 
         return shop;
       } catch (error) {
@@ -20,13 +20,13 @@ module.exports = {
           .skip(offset)
           .limit(limit);
         if (floor) {
-          query.where('floor', floor);
+          query.where("floor", floor);
         }
         if (commercialTypeID) {
-          query.where('commercialTypeID', commercialTypeID);
+          query.where("commercialTypeID", commercialTypeID);
         }
-        if (sortBy === 'promotion') query = query.sort({ promotionInfo: -1 });
-        if (sortBy === 'name') query = query.sort({ name: 1 });
+        if (sortBy === "promotion") query = query.sort({ promotionInfo: -1 });
+        if (sortBy === "name") query = query.sort({ name: 1 });
         const data = await query.exec();
         return data;
       } catch (error) {
@@ -36,13 +36,13 @@ module.exports = {
 
     async getHShopsByName(_, { name, limit = 20 }) {
       try {
-        const data = await Shop.find({ name: new RegExp(name, 'ig') }).limit(limit);
+        const data = await Shop.find({ name: new RegExp(name, "ig") }).limit(limit);
 
         return data;
       } catch (error) {
         throw new Error(error);
       }
-    },
+    }
   },
 
   Mutation: {
@@ -62,8 +62,29 @@ module.exports = {
         await shop.save();
         return shop;
       } else {
-        throw new UserInputError('Shop not found');
+        throw new UserInputError("Shop not found");
       }
     },
-  },
+
+    async shopCreateComment(_, { shopId, commentBody, commentImages = [] }, context) {
+      const { id: userId } = checkAuth(context);
+      let shop = await Shop.findById(shopId);
+      
+      if (shop) {
+        shop.comments.unshift({
+          body: commentBody,
+          images: commentImages,
+          user: userId // ! 惊天Bug: 刚才的populate没有把最后这次user也关联查询出来，导致前端报错
+        });
+        await shop.save();
+
+        // * 修复最后一条评论user没有关联查询的bug
+        shop = await Shop.findById(shopId).populate({ path: 'comments.user', model: 'User', select: 'username' });
+
+        return shop;
+      } else {
+        throw new UserInputError("Shop not found");
+      }
+    }
+  }
 };
