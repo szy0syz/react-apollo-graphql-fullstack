@@ -13,7 +13,7 @@ function GenerateToken(user) {
       username: user.username,
     },
     SECRET_KEY,
-    { expiresIn: '1h' }
+    { expiresIn: '7d' }
   );
 }
 

@@ -88,6 +88,7 @@ module.exports = gql`
     promotionInfo: String
     telphoneList: [TelphoneItem]
     comments: [ShopComment]
+    createdAt: Date!
   }
 
   type Floor {
