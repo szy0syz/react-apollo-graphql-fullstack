@@ -27,7 +27,7 @@ const ShopSchema = new Schema(
         images: [String],
         createdAt: {
           type: Date,
-          default: Date.now(),
+          default: new Date().toISOString(),
         },
         user: {
           type: Schema.Types.ObjectId,
@@ -43,7 +43,7 @@ const ShopSchema = new Schema(
         },
         createdAt: {
           type: Date,
-          default: Date.now(),
+          default: new Date().toISOString(),
         },
       },
     ],
