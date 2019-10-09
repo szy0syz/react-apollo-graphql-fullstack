@@ -74,7 +74,8 @@ module.exports = {
         shop.comments.unshift({
           body: commentBody,
           images: commentImages,
-          user: userId // ! 惊天Bug: 刚才的populate没有把最后这次user也关联查询出来，导致前端报错
+          user: userId, // ! 惊天Bug: 刚才的populate没有把最后这次user也关联查询出来，导致前端报错
+          createdAt: new Date().toISOString()
         });
         await shop.save();
 
