@@ -18,3 +18,28 @@ export const useForm = (callback, initialState = {}) => {
     values,
   };
 };
+
+export const useFetch = url => {
+  const isCurrent = useRef(true);
+  const [state, setState] = useState({ data: null, loading: true });
+
+  useEffect(() => {
+    return () => {
+      // called when the component is going to unmount
+      isCurrent.currnet = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    setState(state => ({ data: state.data, loading: true }));
+    fetch(url)
+      .then(x => x.json())
+      .then(y => {
+        if (isCurrent.currnet) {
+          setState({ data: y, loading: false });
+        }
+      });
+  });
+
+  return state;
+};
